@@ -12,7 +12,7 @@
     <string name="password_is_required">Password is required</string>
     <string name="remember_me">Remember me</string>
     <string name="login">Login</string>
-    <string name="hint_password">⚉ ⚉ ⚉ ⚉ ⚉ ⚉ ⚉ ⚉</string>
+    <string name="hint_password">* * * * * * *</string>
     <string name="hint_email">johndoe@gmail.com</string>
 
     //Register

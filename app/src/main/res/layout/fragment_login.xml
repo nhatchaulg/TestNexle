@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.example.test.nexle.ui.auth.viewmodel.AuthViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -69,10 +78,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:fontFamily="sans-serif"
-            android:text="@string/email_is_required"
+            android:text="@{viewModel.emailValidateMessage}"
             android:textColor="@color/color_text_validate"
             android:textSize="12sp"
-            android:visibility="gone"
+            android:visibility="@{viewModel.isValidateEmail() ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_email" />
 
@@ -121,10 +130,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:fontFamily="sans-serif"
-            android:text="@string/password_is_required"
+            android:text="@{viewModel.passwordValidateMessage}"
             android:textColor="@color/color_text_validate"
             android:textSize="12sp"
-            android:visibility="gone"
+            android:visibility="@{viewModel.isValidatePassword() ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_password" />
 

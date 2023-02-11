@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.example.test.nexle.ui.auth.viewmodel.AuthViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -68,10 +77,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:fontFamily="sans-serif"
-            android:text="@string/first_name_is_required"
+            android:text="@{viewModel.firstNameValidateMessage}"
             android:textColor="@color/color_text_validate"
             android:textSize="12sp"
-            android:visibility="gone"
+            android:visibility="@{viewModel.isValidateFirstName() ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_first_name" />
 
@@ -108,10 +117,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:fontFamily="sans-serif"
-            android:text="@string/last_name_is_required"
+            android:text="@{viewModel.lastNameValidateMessage}"
             android:textColor="@color/color_text_validate"
             android:textSize="12sp"
-            android:visibility="gone"
+            android:visibility="@{viewModel.isValidateLastName() ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_last_name" />
 
@@ -138,9 +147,9 @@
             android:hint="@string/hint_email"
             android:paddingHorizontal="16dp"
             android:paddingVertical="8dp"
-            android:textSize="12sp"
             android:textColor="@color/color_text_input"
             android:textColorHint="@color/color_hint"
+            android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@id/label_email" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -149,10 +158,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:fontFamily="sans-serif"
-            android:text="@string/email_is_required"
+            android:text="@{viewModel.emailValidateMessage}"
             android:textColor="@color/color_text_validate"
             android:textSize="12sp"
-            android:visibility="gone"
+            android:visibility="@{viewModel.isValidateEmail()? View.VISIBLE: View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_email" />
 
@@ -190,10 +199,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:fontFamily="sans-serif"
-            android:text="@string/password_is_required"
+            android:text="@{viewModel.passwordValidateMessage}"
             android:textColor="@color/color_text_validate"
             android:textSize="12sp"
-            android:visibility="gone"
+            android:visibility="@{viewModel.isValidatePassword() ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_password" />
 

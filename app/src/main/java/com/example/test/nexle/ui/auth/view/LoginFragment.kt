@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.test.nexle.R
@@ -28,6 +27,7 @@ class LoginFragment : BaseFragment(), TextWatcher {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding?.viewModel = viewModel
         return _binding?.root
     }
 
@@ -43,66 +43,19 @@ class LoginFragment : BaseFragment(), TextWatcher {
         }
 
         _binding?.btnLogin?.setOnClickListener {
-            if (checkValidate()) {
-                val email = _binding?.etEmail?.text.toString()
-                val password = _binding?.etPassword?.text.toString()
-                login(email, password)
-            }
+            viewModel.email = _binding?.etEmail?.text.toString()
+            viewModel.password = _binding?.etPassword?.text.toString()
+            login()
         }
+
+        _binding?.etEmail?.addTextChangedListener(this)
+        _binding?.etPassword?.addTextChangedListener(this)
 
         _binding?.etPassword?.transformationMethod = AsteriskPasswordTransformationMethod()
     }
 
-    private fun checkValidate(): Boolean {
-        val isEmailValidate = checkEmailValidate()
-        val isPasswordValidate = checkPasswordValidate()
-        return isEmailValidate && isPasswordValidate
-    }
-
-    private fun checkPasswordValidate(): Boolean {
-        if (_binding?.etPassword?.text.isNullOrEmpty()) {
-            showPasswordValidate(getString(R.string.password_is_required))
-            return false
-        } else {
-            val lengthPassword = _binding?.etPassword?.text?.length ?: 0
-            if (lengthPassword < 6 || lengthPassword > 18) {
-                showPasswordValidate(getString(R.string.password_length_validate))
-                return false
-            } else {
-                val password = _binding?.etPassword?.text.toString()
-                if (password.firstOrNull { it.isDigit() } == null) {
-                    showPasswordValidate(getString(R.string.password_format_validate))
-                    return false
-                }
-
-                if (password.filter { it.isLetter() }.firstOrNull { it.isLowerCase() } == null) {
-                    showPasswordValidate(getString(R.string.password_format_validate))
-                    return false
-                }
-                if (password.firstOrNull { !it.isLetterOrDigit() } == null) {
-                    showPasswordValidate(getString(R.string.password_format_validate))
-                    return false
-                }
-            }
-        }
-        return true
-    }
-
-    private fun showPasswordValidate(message: String) {
-        _binding?.validatePassword?.visibility = View.VISIBLE
-        _binding?.validatePassword?.text = message
-    }
-
-    private fun checkEmailValidate(): Boolean {
-        if (_binding?.etEmail?.text.isNullOrEmpty()) {
-            _binding?.validateEmail?.visibility = View.VISIBLE
-            return false
-        }
-        return true
-    }
-
-    private fun login(email: String, password: String) {
-        viewModel.login(email, password).observe(requireActivity()) {
+    private fun login() {
+        viewModel.login().observe(requireActivity()) {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
@@ -113,7 +66,8 @@ class LoginFragment : BaseFragment(), TextWatcher {
                         Toast.makeText(context, "Login Fail", Toast.LENGTH_LONG).show()
                     }
                     Status.LOADING -> {
-                        (activity as AuthActivity).getBinding().layoutLoading.visibility = View.VISIBLE
+                        (activity as AuthActivity).getBinding().layoutLoading.visibility =
+                            View.VISIBLE
                     }
                 }
             }
@@ -121,8 +75,8 @@ class LoginFragment : BaseFragment(), TextWatcher {
     }
 
     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        _binding?.validateEmail?.visibility = View.GONE
-        _binding?.validatePassword?.visibility = View.GONE
+        viewModel.isValidateEmail.set(false)
+        viewModel.isValidatePassword.set(false)
     }
 
     override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
