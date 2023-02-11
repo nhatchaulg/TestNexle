@@ -15,7 +15,6 @@ import com.example.test.nexle.databinding.FragmentLoginBinding
 import com.example.test.nexle.ui.auth.viewmodel.AuthViewModel
 import com.example.test.nexle.ui.base.view.BaseFragment
 import com.example.test.nexle.utils.Status
-import com.example.test.nexle.utils.UtilsSharePreference
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : BaseFragment(), TextWatcher {
@@ -40,11 +39,7 @@ class LoginFragment : BaseFragment(), TextWatcher {
 
     override fun setupView() {
         _binding?.btnRegister?.setOnClickListener {
-            val bundle = bundleOf("recipient" to "")
-            navController.navigate(
-                R.id.action_loginFragment_to_registerFragment,
-                bundle
-            )
+            navController.navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
         _binding?.btnLogin?.setOnClickListener {
@@ -75,16 +70,16 @@ class LoginFragment : BaseFragment(), TextWatcher {
                 return false
             } else {
                 val password = _binding?.etPassword?.text.toString()
-                if (password.filter { it.isDigit() }.firstOrNull() == null) {
+                if (password.firstOrNull { it.isDigit() } == null) {
                     showPasswordValidate(getString(R.string.password_format_validate))
                     return false
                 }
 
-                if (password.filter { it.isLetter() }.filter { it.isLowerCase() }.firstOrNull() == null) {
+                if (password.filter { it.isLetter() }.firstOrNull { it.isLowerCase() } == null) {
                     showPasswordValidate(getString(R.string.password_format_validate))
                     return false
                 }
-                if (password.filter { !it.isLetterOrDigit() }.firstOrNull() == null) {
+                if (password.firstOrNull { !it.isLetterOrDigit() } == null) {
                     showPasswordValidate(getString(R.string.password_format_validate))
                     return false
                 }
@@ -111,9 +106,7 @@ class LoginFragment : BaseFragment(), TextWatcher {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        UtilsSharePreference.updateUserToken(it.data?.token)
-                        UtilsSharePreference.updateUserName(it.data?.displayName)
-                        (activity as AuthActivity).startMainActivity()
+                        (activity as AuthActivity).startMainActivity(it.data)
                     }
                     Status.ERROR -> {
                         (activity as AuthActivity).getBinding().layoutLoading.visibility = View.GONE

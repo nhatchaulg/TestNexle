@@ -27,7 +27,7 @@ class RegisterFragment : BaseFragment(), TextWatcher {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentRegisterBinding.inflate(inflater, container, false);
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return _binding?.root
     }
 
@@ -39,11 +39,7 @@ class RegisterFragment : BaseFragment(), TextWatcher {
 
     override fun setupView() {
         _binding?.btnLogin?.setOnClickListener {
-            val bundle = bundleOf("recipient" to "")
-            navController.navigate(
-                R.id.action_registerFragment_to_loginFragment,
-                bundle
-            )
+            navController.navigate(R.id.action_registerFragment_to_loginFragment)
         }
 
         _binding?.btnRegister?.setOnClickListener {
@@ -70,7 +66,7 @@ class RegisterFragment : BaseFragment(), TextWatcher {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        (activity as AuthActivity).startMainActivity()
+                        (activity as AuthActivity).startMainActivity(it.data)
                     }
                     Status.ERROR -> {
                         (activity as AuthActivity).getBinding().layoutLoading.visibility = View.GONE

@@ -15,7 +15,6 @@ import com.example.test.nexle.utils.Status
 import com.example.test.nexle.utils.UtilsSharePreference
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var _binding: ActivityMainBinding
