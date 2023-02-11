@@ -1,27 +1,33 @@
 package com.example.test.nexle.ui.splash.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.provider.Contacts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.test.nexle.R
 import com.example.test.nexle.ui.auth.view.AuthActivity
 import com.example.test.nexle.ui.main.view.MainActivity
 import com.example.test.nexle.utils.UtilsSharePreference
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
-class SplashActivity: AppCompatActivity() {
+@SuppressLint("CustomSplashScreen")
+class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-
-        Handler().postDelayed({
-            if (UtilsSharePreference.getUserToken().isNullOrEmpty()) {
+        runBlocking {
+            delay(300)
+            if (UtilsSharePreference.getUserToken().isEmpty()) {
                 startLoginAct()
             } else {
                 startMainAct()
             }
-        }, 300)
+        }
     }
 
     private fun startLoginAct() {
