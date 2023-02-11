@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="color_border_input">#D8D6DE</color>
+    <color name="color_hint">#B9B9C3</color>
+    <color name="color_text_forgot_password">#7367F0</color>
+    <color name="color_text_validate">#EA5455</color>
+    <color name="color_text_title">#5E5873</color>
+    <color name="color_text_subtitle">#6E6B7B</color>
+    <color name="color_text_input">#141414</color>
+    <color name="color_button">#7367F0</color>
+    <color name="color_line">#E9EAEC</color>
+    <color name="color_bg_main">#F8F8F8</color>
 </resources>

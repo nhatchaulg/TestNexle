@@ -1,5 +1,6 @@
 package com.example.test.nexle.di
 
+import com.example.test.nexle.utils.UtilsSharePreference
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -17,7 +18,12 @@ val retrofitModule = module {
     }
 
     fun provideHttpClient(): OkHttpClient {
-        val okHttpClientBuilder = OkHttpClient.Builder()
+        val okHttpClientBuilder = OkHttpClient.Builder().addInterceptor { chain ->
+            val newRequest = chain.request().newBuilder()
+                .addHeader("Authorization", UtilsSharePreference.getUserToken())
+                .build()
+            chain.proceed(newRequest)
+        }
 
         return okHttpClientBuilder.build()
     }
