@@ -9,6 +9,7 @@
     <string name="label_register">New on our platform? <font color="#7367F0">Create an account</font></string>
     <string name="label_forgot_password">Forgot Password</string>
     <string name="email_is_required">Email is required</string>
+    <string name="email_is_validate">The email is valid</string>
     <string name="password_is_required">Password is required</string>
     <string name="remember_me">Remember me</string>
     <string name="login">Login</string>

@@ -110,6 +110,13 @@ class AuthViewModel constructor(
                 MyApplication.mInstance?.getString(R.string.email_is_required) ?: ""
             )
             return false
+        } else {
+            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                isValidateEmail.set(true)
+                emailValidateMessage.set(
+                    MyApplication.mInstance?.getString(R.string.email_is_validate) ?: ""
+                )
+            }
         }
         return true
     }
