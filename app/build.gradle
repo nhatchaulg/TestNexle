@@ -1,8 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
-    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -46,7 +44,6 @@ dependencies {
     //LifeCycle
     implementation 'androidx.lifecycle:lifecycle-common:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-runtime:2.5.1'
-    implementation 'android.arch.lifecycle:extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
 
     //Retrofit
@@ -58,16 +55,15 @@ dependencies {
     //Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
 
-    //Dagger Hilt
-    implementation "com.google.dagger:hilt-android:2.44"
-    kapt "com.google.dagger:hilt-compiler:2.44"
-    kapt 'androidx.hilt:hilt-compiler:1.0.0'
-
     implementation("androidx.collection:collection-ktx:1.2.0")
     implementation("androidx.fragment:fragment-ktx:1.5.5")
-}
 
-// Allow references to generated code
-kapt {
-    correctErrorTypes true
+    // Koin for Android
+    implementation 'io.insert-koin:koin-android:3.3.3'
+    implementation 'io.insert-koin:koin-core:3.3.3'
+    implementation 'io.insert-koin:koin-test:3.3.3'
+
+    //Navigation
+    implementation "androidx.navigation:navigation-fragment:2.6.0-alpha05" // For Kotlin use navigation-fragment-ktx
+    implementation "androidx.navigation:navigation-ui:2.6.0-alpha05" // For Kotlin
 }
