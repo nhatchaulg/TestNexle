@@ -1,5 +1,6 @@
 package com.example.test.nexle.ui.main.viewmodel
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.test.nexle.data.repository.MainRepository
@@ -9,6 +10,9 @@ import kotlinx.coroutines.Dispatchers
 class MainViewModel constructor(
     private val mainRepository: MainRepository,
 ) : ViewModel() {
+
+    val displayName by lazy { ObservableField("") }
+    val isShowLoading by lazy { ObservableField(false) }
 
     fun logout() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))

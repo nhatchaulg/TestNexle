@@ -14,5 +14,5 @@ data class User(
     @SerializedName("token")
     val token: String,
     @SerializedName("refreshToken")
-    val refreshToken: String
+    val refreshToken: String,
 )

@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         val view = _binding.root
         setContentView(view)
+        _binding.viewModel = viewModel
         setupView()
     }
 
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             showMenu()
         }
 
-        _binding.txNameUser.text = UtilsSharePreference.getUserName()
+        viewModel.displayName.set(UtilsSharePreference.getUserName())
 
         actionBarDrawerToggle = ActionBarDrawerToggle(this, _binding.drawLayout, R.string.nav_open, R.string.nav_close)
 
@@ -47,16 +48,16 @@ class MainActivity : AppCompatActivity() {
                     viewModel.logout().observe(this) {
                         when (it.status) {
                             Status.SUCCESS -> {
-                                _binding.layoutLoading.visibility = View.GONE
+                                viewModel.isShowLoading.set(false)
                                 Toast.makeText(this, "Logout Success", Toast.LENGTH_LONG).show()
                                 gotoLogin()
                             }
                             Status.ERROR -> {
-                                _binding.layoutLoading.visibility = View.GONE
+                                viewModel.isShowLoading.set(false)
                                 Toast.makeText(this, "Logout Fail", Toast.LENGTH_LONG).show()
                             }
                             Status.LOADING -> {
-                                _binding.layoutLoading.visibility = View.VISIBLE
+                                viewModel.isShowLoading.set(true)
                             }
                         }
                     }

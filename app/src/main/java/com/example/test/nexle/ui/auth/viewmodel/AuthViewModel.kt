@@ -32,6 +32,8 @@ class AuthViewModel constructor(
     val lastNameValidateMessage by lazy { ObservableField("") }
     val isValidateLastName by lazy { ObservableField(false) }
 
+    val isShowLoading by lazy { ObservableField(false) }
+
     fun login() = liveData(Dispatchers.IO) {
         if (checkLoginValidate()) {
             emit(Resource.loading(data = null))

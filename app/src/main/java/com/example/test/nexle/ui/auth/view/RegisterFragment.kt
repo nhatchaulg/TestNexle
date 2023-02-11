@@ -67,12 +67,11 @@ class RegisterFragment : BaseFragment(), TextWatcher {
                         (activity as AuthActivity).startMainActivity(it.data)
                     }
                     Status.ERROR -> {
-                        (activity as AuthActivity).getBinding().layoutLoading.visibility = View.GONE
+                        (activity as AuthActivity).viewModel.isShowLoading.set(false)
                         Toast.makeText(context, "SignUp Fail", Toast.LENGTH_LONG).show()
                     }
                     Status.LOADING -> {
-                        (activity as AuthActivity).getBinding().layoutLoading.visibility =
-                            View.VISIBLE
+                        (activity as AuthActivity).viewModel.isShowLoading.set(true)
                     }
                 }
             }
